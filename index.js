@@ -64,13 +64,13 @@ function getVideo(player) {
           metadata: {
             type: 0,
             metadataType: 0,
-            title: "Big Buck Bunny",
+            title: info.title,
             images: [
-              { url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg' }
+              { url: info.thumbnail }
             ]
           }
         };
-
+        console.log(info);
         player.load(media, { autoplay: true }, function(err, status) {});
         console.log('url:', info.url);
       });
