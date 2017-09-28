@@ -1,0 +1,27 @@
+{
+  "name": "addpornography",
+  "version": "1.0.0",
+  "description": "A recreation of the NIN Add Violence machine that pushes customized pornography to all present Chromecasts. Used with caution.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aubron/AddPornography.git"
+  },
+  "author": "Aubron Wood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aubron/AddPornography/issues"
+  },
+  "homepage": "https://github.com/Aubron/AddPornography#readme",
+  "dependencies": {
+    "castv2": "^0.1.9",
+    "castv2-client": "^1.2.0",
+    "mdns": "^2.3.3",
+    "request": "^2.83.0",
+    "youtube-dl": "^1.11.1"
+  }
+}
