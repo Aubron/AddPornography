@@ -1,8 +1,7 @@
 var Client                = require('castv2-client').Client;
 var DefaultMediaReceiver  = require('castv2-client').DefaultMediaReceiver;
 var mdns                  = require('mdns');
-var request = require('request');
-
+var PornFinder = require('./lib/PornFinder');
 var youtubedl = require('youtube-dl');
 
 
@@ -44,36 +43,31 @@ function ondeviceup(host) {
 
 
 function getVideo(player) {
-  request('https://www.pornhub.com/webmasters/search?id=44bc40f3bc04f65b7a35&search=hard&tags[]=Teen&thumbsize=medium',
-  function(error,response,body) {
-    var videos = JSON.parse(body)['videos'];
+  var options = [];
+  PornFinder.findPorn().then(function(url) {
+    youtubedl.getInfo(url, options, function(err, info) {
+      if (err) throw err;
+      var media = {
+        // Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
+        contentId: info.url,
+        contentType: 'video/mp4',
+        streamType: 'BUFFERED', // or LIVE
 
-    var url = videos[0]['url'];
-        // Optional arguments passed to youtube-dl.
-    var options = [];
-
-      youtubedl.getInfo(url, options, function(err, info) {
-        if (err) throw err;
-        var media = {
-          // Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
-          contentId: info.url,
-          contentType: 'video/mp4',
-          streamType: 'BUFFERED', // or LIVE
-
-          // Title and cover displayed while buffering
-          metadata: {
-            type: 0,
-            metadataType: 0,
-            title: info.title,
-            images: [
-              { url: info.thumbnail }
-            ]
-          }
-        };
-        console.log(info);
-        player.load(media, { autoplay: true }, function(err, status) {});
-        console.log('url:', info.url);
+        // Title and cover displayed while buffering
+        metadata: {
+          type: 0,
+          metadataType: 0,
+          title: info.title,
+          images: [
+            { url: info.thumbnail }
+          ]
+        }
+      };
+      player.load(media, { autoplay: true }, function(err, status) {
+        player.seek(2*60, function(err, status) {
+          //
+        });
       });
-
     });
+  });
 }
