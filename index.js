@@ -4,6 +4,7 @@ var mdns                  = require('mdns');
 var PornFinder = require('./lib/PornFinder');
 var youtubedl = require('youtube-dl');
 
+const CATEGORY = "bondage"
 
 var browser = mdns.createBrowser(mdns.tcp('googlecast'));
 
@@ -47,7 +48,7 @@ function ondeviceup(host) {
 
 function getVideo(player) {
   var options = [];
-  PornFinder.findPorn().then(function(url) {
+  PornFinder.findPorn(CATEGORY).then(function(url) {
     youtubedl.getInfo(url, options, function(err, info) {
       if (err) throw err;
       var media = {
