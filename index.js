@@ -21,9 +21,12 @@ function ondeviceup(host) {
 
   client.connect(host, function() {
     console.log('connected, launching app ...');
+    client.setVolume({
+      muted: false,
+      level: 1
+    },() => {});
 
     client.launch(DefaultMediaReceiver, function(err, player) {
-
       player.on('status', function(status) {
         console.log('status broadcast playerState=%s', status.playerState);
       });
@@ -63,11 +66,16 @@ function getVideo(player) {
           ]
         }
       };
-      player.load(media, { autoplay: true }, function(err, status) {
-        player.seek(2*60, function(err, status) {
-          //
+      try {
+        player.load(media, { autoplay: true }, function(err, status) {
+          player.seek(2*60, function(err, status) {
+            //
+          });
         });
-      });
+      } catch (e) {
+        getVideo(player);
+      }
+      
     });
   });
 }

@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/Aubron/AddPornography#readme",
   "dependencies": {
-    "castv2": "^0.1.9",
+    "castv2": "^0.1.10",
     "castv2-client": "^1.2.0",
-    "mdns": "^2.3.3",
+    "mdns": "^2.5.1",
     "request": "^2.83.0",
-    "youtube-dl": "^1.11.1"
+    "youtube-dl": "^3.0.2"
   }
 }
